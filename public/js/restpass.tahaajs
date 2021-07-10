@@ -1,0 +1,37 @@
+$(function () {
+
+    $(document).on('click','#clickrespass',function () {
+
+       var email=$('#inputrespass').val();
+
+       if (email.length>0){
+
+           $.ajax('/ajax_rest_password', {
+                   type: 'post',
+                   data:{
+                       email0:email
+                   },
+                   success: function (data) {
+
+                       $('#setRequest').html(data);
+
+                   }
+               }
+           );
+
+
+           $.ajax('/send_forget_email', {
+                   type: 'post'
+               }
+           );
+
+
+
+       } else {
+           alert("لطفا ایمیل خود را وارد کنید");
+       }
+
+    });
+
+
+});

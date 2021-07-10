@@ -1,0 +1,38 @@
+$(function () {
+
+    $(document).on('click','.luanch',function () {
+
+        var lunch=$(this).data('id');
+
+        $.ajax('/comment-lunch', {
+                type: 'post',
+                data: {
+                    lunch: lunch
+                }
+            }
+        );
+
+        var parent=$(this).parentsUntil('.cartItem').parent();
+        parent.remove();
+
+    });
+
+
+    $(document).on('click','.remove',function () {
+
+        var remove=$(this).data('id');
+
+        $.ajax('/comment-remove', {
+                type: 'post',
+                data: {
+                    remove: remove
+                }
+            }
+        );
+
+        var parent=$(this).parentsUntil('.cartItem').parent();
+        parent.remove();
+
+    });
+
+});

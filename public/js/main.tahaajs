@@ -1,0 +1,366 @@
+$(function () {
+     //f();
+
+
+    // $(document).on('click','#msg',function () {
+    //     $('#messageshow').show();
+    //     $('#msgcount').hide();
+    //     $.ajax('/message', {
+    //             type: 'post',
+    //             success: function (data) {
+    //                 $('#messageshow').html(data);
+    //
+    //             }
+    //         }
+    //     );
+    //
+    // });
+/////////////////////////////////////////////////////////////////////////////////////
+//             $(document).on('click','.chatzarbdar',function () {
+//                 if (typeof $timer !== 'undefined') {
+//                     clearInterval($timer);
+//                 }
+//                 $('#messageshow').hide();
+//
+//             });
+// ///////////////////////////////////////////////////////////////////////////////////////
+//
+//             $(document).on('click','.list',function () {
+//                     $id=$(this).data('idt');
+// /////////////////////////////////////////////////////////////////////////////////////
+
+    // $.ajax('/chat', {
+    //         type: 'post',
+    //         success: function (data) {
+    //             $('#messageshow').html(data);
+    //
+    //         }
+    //     }
+    // );
+    //
+    // getmessages=function () {
+    //
+    //     $('#msgcount').hide();
+    //
+    //     $.ajax('/getMessages', {
+    //             type: 'post',
+    //             data:{
+    //                 msgto:$id
+    //              },
+    //             success: function (data) {
+    //                 $('.chat_middel').html(data);
+    //                // alert($id);
+    //                 if (autoscroll){
+    //                     scrolldwon();
+    //                 }
+    //                 $('.chat_middel').on('scroll',function () {
+    //
+    //                     if ($(this).scrollTop()<this.scrollHeight-$(this).height()) {
+    //                         autoscroll=false;
+    //                     }else {
+    //                         autoscroll=true;
+    //                     }
+    //                 }) ;
+    //
+    //
+    //
+    //             }
+    //         }
+    //     );
+    // };
+    //
+    //
+    // getmessages();
+    // $timer=setInterval(getmessages,5000);
+    //
+    //
+    // ///////////////////in vase inke har vaght ok zad scroll bechasbe be akhar
+    // autoscroll=true;
+    // scrolldwon=function(){
+    //     $('.chat_middel').scrollTop($('.chat_middel')[0].scrollHeight);
+    // };
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+    //  });
+
+    // $(document).on('click','#sendMsg',function () {
+    //         var vliue=$('#intputMsg').val();
+    //
+    //     $.ajax('/sendmessge', {
+    //             type: 'post',
+    //             data:{
+    //                 valuee:vliue,
+    //                 msgto:$id
+    //             },
+    //             success: function () {
+    //
+    //             }
+    //         }
+    //     );
+    //
+    //     getmessages();
+    //     $('#intputMsg').val("");
+    //
+    // });
+    $(document).on('click','#all',function () {
+        $('#cart').hide('fade');
+    });
+
+    $('#cart').hide();
+
+
+    $(document).on('click','.pageination',function () {
+        var page=$(this).data('pageination');
+        var word=$('#search').val();
+
+        if (word === ""){
+
+            $.ajax('/pageination', {
+                    type: 'post',
+                    data:{
+                        page:page
+                    },
+                    success: function (data) {
+                        $('#products').html(data);
+                    }
+                }
+            );
+
+        }else{
+
+
+            var type1=$('#xxxx').val();
+
+            $.ajax('/search', {
+                    type: 'post',
+                    data:{
+                        words:word,
+                        typing:type1,
+                        page:page
+                    },
+                    success: function (data) {
+                        $('#products').html(data);
+                    }
+                }
+            );
+
+        }
+
+
+
+
+    });
+
+
+
+    $(document).on('keyup','#search',function () {
+
+        var word=$(this).val();
+        var type1=$('#xxxx').val();
+        $.ajax('/search', {
+                type: 'post',
+                data:{
+                    words:word,
+                    typing:type1,
+                    page:0
+                },
+                success: function (data) {
+                    $('#products').html(data);
+                }
+            }
+        );
+    });
+
+    // $(document).on('change','#selectq',function () {
+    //
+    //     var word=$('#search').val();
+    //     var selectaaaa=$(this).val();
+    //     console.log(selectaaaa);
+    //
+    //     $.ajax('/search', {
+    //             type: 'post',
+    //             data:{
+    //                 words:word,
+    //                 selectssss:selectaaaa
+    //             },
+    //             success: function (data) {
+    //                 $('#products').html(data);
+    //             }
+    //         }
+    //     );
+    // });
+
+    $(document).on('click','.buy',function () {
+
+        var word=$(this).data('idp');
+
+        $.ajax('/addToCart', {
+                dataType:'json',
+                type: 'post',
+                data:{
+                    words:word
+                },
+                success: function (data) {
+                    $('.cart_counts').html(data.itemCount);
+                    //alert("a");
+
+                    $.ajax('/loadcart', {
+                            type: 'post',
+                            success: function (data) {
+                                $('#tbag').html(data);
+                            }
+                        }
+                    );
+
+                }
+            }
+        );
+
+
+
+    });
+
+    $(document).on('click','.fa-times-circle',function () {
+
+        var aa=$(this).data('idp');
+
+        $.ajax('/deleteCart', {
+                dataType:'json',
+                type: 'post',
+                data:{
+                    idorder:aa
+                },
+                success: function (data) {
+
+
+                    $('.cart_counts').html(data.itemCount);
+
+
+
+                    $.ajax('/loadcart', {
+                            type: 'post',
+                            success: function (data) {
+                                $('#tbag').html(data);
+                            }
+                        }
+                    );
+
+                }
+            }
+        );
+
+    });
+
+    $('#icon_basket').hover(function () {
+
+
+        $('#cart').toggle('linear');
+        $.ajax('/loadcart', {
+                type: 'post',
+                success: function (data) {
+                    $('#tbag').html(data);
+                }
+            }
+        );
+
+    },function () {
+
+        // $('#cart').toggle();
+    });
+
+    $('#cart').hover(function () {
+
+    },function () {
+
+        $('#cart').toggle('linear');
+    });
+
+    // $(document).on('click','#icon_basket',function () {
+    //
+    //     $('#cart').toggle();
+    //     $.ajax('/loadcart', {
+    //             type: 'post',
+    //             success: function (data) {
+    //                 $('#tbag').html(data);
+    //             }
+    //         }
+    //     );
+
+    // });
+    $(document).on('click','#grid',function () {
+
+        $('#search').val("");
+        $('#xxxx').val('grid');
+        var word=$(this).data('type');
+
+        $.ajax('/select', {
+                type: 'post',
+                data:{
+                    words:word
+                },
+                success: function (data) {
+                    $('#products').html(data);
+                }
+            }
+        );
+
+    });
+
+    $(document).on('click','#linear',function () {
+
+        $('#xxxx').val('linear');
+        $('#search').val("");
+        var word=$(this).data('type');
+
+        $.ajax('/select', {
+                type: 'post',
+                data:{
+                    words:word
+                },
+                success: function (data) {
+                    $('#products').html(data);
+                }
+            }
+        );
+
+    });
+
+
+
+
+    // messagecounter=function () {
+    //     $.ajax('/msgCount', {
+    //             dataType: 'json',
+    //             type: 'post',
+    //             success: function (data) {
+    //
+    //                 if (data.tt > 0){
+    //                     $('#msgcount').show();
+    //                     $('#msgcount').html(data.tt);
+    //                 }else {
+    //                     $('#msgcount').hide();
+    //                 }
+    //
+    //             }
+    //         }
+    //     );
+    //
+    // };
+    //
+    // messagecounter();
+    // var a=setInterval(messagecounter,10000);
+
+});
+
+function f() {
+
+    $.ajax('/show_count', {
+            type: 'post',
+            success: function (data) {
+                $('.cart_counts').html(data.itemCount);
+                alert(data.itemCount);
+            }
+        }
+    );
+}

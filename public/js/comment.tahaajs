@@ -1,0 +1,70 @@
+$(function () {
+
+    $(document).on('click','#flip1',function () {
+        commentim=$('#exampleTextarea').val();
+
+
+        if (commentim.length>0){
+            pro_id=$('#product_id').val();
+
+
+            $('#exampleTextarea').val("");
+            $('#comment_aleart').show('fade');
+            setTimeout(function () {
+                $('#comment_aleart').hide('fade');
+            },5000);
+
+
+            $.ajax('/add_comments', {
+                    type: 'post',
+                    data:{
+                        words:commentim,
+                        pid:pro_id
+
+                    },
+                    success: function () {
+
+                        // $('#exampleTextarea').val("");
+                        //
+                        //
+                        // $('#comment_aleart').show('fade');
+                        //
+                        // setTimeout(function () {
+                        //     $('#comment_aleart').hide('fade');
+                        // },6000);
+                    }
+                }
+            );
+        } else {
+            alert("متن خالی است .");
+        }
+
+
+    });
+
+
+
+
+
+
+    $(document).on('click','.buy',function () {
+        var word=$(this).data('idp');
+
+        $.ajax('/addToCart', {
+                type: 'post',
+                data:{
+                    words:word
+                }
+            }
+        );
+
+
+            $('#aaleart').show('fade');
+
+            setTimeout(function () {
+                $('#aaleart').hide('fade');
+            },3000);
+
+
+    });
+});

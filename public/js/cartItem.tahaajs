@@ -1,0 +1,183 @@
+$(function () {
+
+    calcuteTotalPrice();
+
+    $(document).on('click','.quantityc',function () {
+
+        var control=$(this);
+        var data=control.data('id');
+        var tuype=control.data('type');
+
+
+        var parent=control.parentsUntil('.cartItem').parent();
+
+        var quantity=parent.find('.value_quantiti').text();
+        quantity=parseInt(quantity);
+
+        if (tuype === 'plus'){
+                quantity++;
+        }else {
+                quantity--;
+        }
+
+
+       //var price=parent.find(".pricec");
+        var price_i=parent.find(".pricec_i");
+        var total_price=parent.find('.pricetotalc');
+        var total_price_i=parent.find('.pricetotalc_i');
+
+
+        var price_value_text=price_i.val();
+        if (quantity>=1){
+            parent.find('.value_quantiti').text(quantity);
+            total_price.text(formatNumber(quantity*price_value_text));
+            total_price_i.val(quantity*price_value_text);
+///////////////////////////////////////////////////
+            calcuteTotalPrice();
+
+            $.ajax('/UpdatecartItem', {
+                    type: 'post',
+                    data:{
+                        quantity:quantity,
+                        idd:data
+                    },
+                    success: function (data) {
+
+                    }
+                }
+            );
+        }else {
+            parent.find('.value_quantiti').text(1);
+            total_price.text(formatNumber(price_value_text));
+            total_price_i.val(price_value_text);
+        }
+
+    });
+
+    $(document).on('click','.fa-times-circle',function () {
+        var result=$(this).data('idp');
+        var parent=$(this).parentsUntil('.cartItem').parent();
+        parent.remove();
+///////////////////////////////////////////////////
+        calcuteTotalPrice();
+
+        $.ajax('/removecartItem', {
+                type: 'post',
+                data:{
+                    idd:result
+                }
+            }
+        );
+    });
+
+    $(document).on('click','#pay_error',function () {
+
+        $('#aaleart').show('fade');
+
+        setTimeout(function () {
+            $('#aaleart').hide('fade');
+        },6000);
+    });
+
+
+});
+
+function calcuteTotalPrice() {
+    var sum=0;
+    $('.cartItem').each(function () {
+
+        var s=$(this).find(".pricetotalc_i").val();
+        //var s=$(this).find(".pricetotalc").text();
+        sum+=parseInt(s);
+    });
+
+
+    $('#total').text('قیمت نهایی : '+ formatNumber(sum)+" تومان ");
+
+    if (sum === 0){
+
+        $('.updatePrice').html('<a href="/">\n' +
+            '<button  type="button" class="btn btn-primary fonting">بازگشت به فروشگاه</button>\n' +
+            '</a>');
+
+        $('.updatePrice2').remove();
+
+    }
+
+    $.ajax('/set_price', {
+            type: 'post',
+            data:{
+                price_s:sum
+            }
+        }
+    );
+
+}
+function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+// $(function () {
+//
+//     $(document).on('change keyup','.quantityc',function () {
+//
+//         var control=$(this);
+//         var quantity=control.val();
+//         var data=control.data('id');
+//
+//         var parent=control.parentsUntil('.cartItem').parent();
+//
+//         var price=parent.find(".pricec");
+//         var total_price=parent.find('.pricetotalc');
+//
+//         var price_value_text=price.text();
+//
+//         total_price.text(quantity*price_value_text);
+// ///////////////////////////////////////////////////
+//         calcuteTotalPrice();
+// //                 var sum=0;
+// //                 $('.cartItem').each(function () {
+// //
+// //                     var s=$(this).find(".pricetotalc").text();
+// //                     sum+=parseInt(s);
+// //                 });
+// //                $('#total').text('total price : '+sum);
+// ///////////////////////////////////////////////////
+//         $.ajax('/UpdatecartItem', {
+//                 type: 'post',
+//                 data:{
+//                     quantity:quantity,
+//                     idd:data
+//                 },
+//                 success: function (data) {
+//
+//                 }
+//             }
+//         );
+//     });
+//
+//     $(document).on('click','.fa-times-circle',function () {
+//         var result=$(this).data('idp');
+//         var parent=$(this).parentsUntil('.cartItem').parent();
+//         parent.remove();
+// ///////////////////////////////////////////////////
+//         calcuteTotalPrice();
+// //                 var sum=0;
+// //                 $('.cartItem').each(function () {
+// //
+// //                     var s=$(this).find(".pricetotalc").text();
+// //                     sum+=parseInt(s);
+// //                 });
+// //                 $('#total').text('total price : '+sum);
+// ///////////////////////////////////////////////////
+//         $.ajax('/removecartItem', {
+//                 type: 'post',
+//                 data:{
+//                     idd:result
+//                 }
+//             }
+//         );
+//     });
+//
+// });
+
+

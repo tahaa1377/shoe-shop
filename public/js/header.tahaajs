@@ -1,0 +1,103 @@
+
+$(function () {
+    // count_cart();
+
+
+
+    $(document).on('click','#all',function () {
+        $('#input-search').val("");
+        $('#serach-main').hide('fade');
+        $('.cart_show').hide();
+    });
+
+    $('#input-search').val("");
+
+    setTimeout(function () {
+        $('#serach-main').hide('fade');
+
+    },1);
+
+    $(document).on('keyup','#input-search',function () {
+
+        var value=$(this).val();
+
+        if (value.length > 0){
+
+            $.ajax('/search_main_page', {
+                    type: 'post',
+                    data:{
+                        valuew:value
+                    },
+                    success: function (taha) {
+
+                        if (!taha){
+                            $('#serach-main').hide('fade');
+
+                        }else{
+                            $('#serach-main').html(taha);
+                            $('#serach-main').show('fade');
+                        }
+
+                    }
+                }
+            );
+
+        }else {
+            $('#serach-main').hide('fade');
+        }
+    });
+
+
+
+
+
+
+
+    $('.cart_show').hide();
+
+    $('#counti').hover(function () {
+
+        var count=$(this).data('count');
+
+        $.ajax('/loadcart_main', {
+                type: 'post',
+                data:{
+                    countq:count
+                },
+                success: function (data) {
+                    if (data) {
+                        //$('.cart_show').toggle('linear');
+                        $('.cart_show').toggle();
+                        $('.cart_show').html(data);
+                    }
+                }
+            }
+        );
+
+    },function () {
+
+        //$('.cart_show').toggle('linear');
+        //$('.cart_show').toggle();
+    });
+
+
+    // $('.cart_show').hover(function () {
+    // },function () {
+    //     //$('.cart_show').toggle('linear');
+    //     $('.cart_show').toggle();
+    // });
+
+});
+
+// function count_cart() {
+//     $.ajax('/count_cart_basket', {
+//             type: 'post',
+//             dataType: 'json',
+//             success: function (data) {
+//                 if (data.count > 0){
+//                     $('#counti').html('<span style="color: white;background-color: red;padding: 0 4px;border-radius: 30px;font-weight: bold;font-size: 60%;position: absolute;right: 40%">'+data.count+'</span>\n');
+//                 }
+//             }
+//         }
+//     );
+// }

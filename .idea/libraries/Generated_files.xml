@@ -1,0 +1,41 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/public/js/add-cart-m.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/add-cart.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/admin-comment-check.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/cartItem.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/comment.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/feature-page.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/header.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/main.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/main2.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/main3.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/mainPage.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/mcartItem.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/restpass.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/search_delete_pro.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/search_update_pro.min.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/public/js/add-cart-m.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/add-cart.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/admin-comment-check.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/cartItem.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/comment.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/feature-page.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/header.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/main.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/main2.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/main3.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/mainPage.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/mcartItem.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/restpass.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/search_delete_pro.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/search_update_pro.min.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
